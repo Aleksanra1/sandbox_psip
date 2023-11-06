@@ -1,4 +1,4 @@
-users_list = [
+users_list: list = [
     {"name":"Ola", "nick":"major", "posts":1},
     {"name":"Kinga", "nick":"Kinia","posts":60},
     {"name":"Bartosz", "nick":"Baran", "posts":31231},
