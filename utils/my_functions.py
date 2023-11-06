@@ -36,33 +36,32 @@ def show_users_from(users_list:list) ->None:
    for user in users_list:
       print(f'Twoj znajomy {user["name"]} dodał {user["posts"]}')
 
-def gui(users_list) -> None:
+
+def gui(users_list:list) -> None:
     while True:
-        print(f'Menu: \n'
+        print(f'MENU: \n'
               f'0: Zakończ program \n'
               f'1: Wyświetl użytkowników \n'
               f'2: Dodaj użytkownika \n'
               f'3: Usuń użytkownika \n'
               f'4: Modyfikuj użytkownika \n'
               )
-        menu_option = input('Podaj funkcje do wywolania')
-        print(f'Wybrano funkcje {menu_option}')
+        menu_option = input('Podaj funkcję do wywołania')
+        print(f'Wybrano funkcję {menu_option}')
 
         match menu_option:
             case '0':
                 print('Kończę pracę')
                 break
             case '1':
-                print('WYswietlanie listy uzytkownikow')
+                print('Wyświetlenie listy użytkowników')
                 show_users_from(users_list)
             case '2':
-                print('Dodaję uzytkownika')
+                print('Dodawanie użytkownika')
                 add_user_to(users_list)
             case '3':
-                print('Usuwanie użytkownika')
+                print("Usuwanie użytkownika")
                 remove_user_from(users_list)
             case '4':
-                print('Modyfikuj uzytkownika')
-                print('to bedzie zrobione')  # TODO add this function to my_functions
-
-
+                print('Modyfikuję użytkownika')
+                print('to będzie zrobione')  # TODO add this function to my_functions
