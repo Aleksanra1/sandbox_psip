@@ -2,7 +2,6 @@ from bs4 import BeautifulSoup
 import requests
 import folium
 
-
 def add_user_to(users_list: list) -> None:
     """
     add object to list
@@ -150,3 +149,7 @@ def get_map_of(users: list) -> None:
                   f'Liczba postów {user["posts"]}'
         ).add_to(map)
     map.save('mapkaaa.html')
+
+def pogoda_z(miasto: str):
+    url = f"https://danepubliczne.imgw.pl/api/data/synop/station/{miasto}"
+    return requests.get(url).json()
