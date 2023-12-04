@@ -153,3 +153,4 @@ def get_map_of(users: list) -> None:
 def pogoda_z(miasto: str):
     url = f"https://danepubliczne.imgw.pl/api/data/synop/station/{miasto}"
     return requests.get(url).json()
+
