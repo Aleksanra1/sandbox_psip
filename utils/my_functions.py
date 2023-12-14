@@ -150,3 +150,4 @@ def get_map_of(users: list) -> None:
                   f'Liczba postów {user["posts"]}'
         ).add_to(map)
     map.save('mapkaaa.html')
+

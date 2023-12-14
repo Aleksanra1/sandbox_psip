@@ -10,4 +10,5 @@ users_list: list = [
     {"city": 'Koszalin',"name":"Kasia", "nick":"Kkk","posts": 1500},
     {"city": 'Hrubieszów',"name":"Agata", "nick":"Aaa","posts": 1500},
 ]
-# cntl alt L
+# cntl alt L ladnie ci sie robi wted
+# cntl znak zaputania haszujesz

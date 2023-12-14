@@ -33,32 +33,6 @@ class User(Base):
 
 Base.metadata.create_all(engine)
 
-Session = sqlalchemy.orm.sessionmaker(bind=engine)
-session = Session()
-
-##Create / insert
-
-lista_userow: list = []
-fake = Faker()
-for item in range(10_000):
-    lista_userow.append(
-        User(
-            name=fake.name(),
-            location=f'POINT({random.uniform(14,24)} {random.uniform(49,55)})'
-        )
-    )
-
-
-session.add_all(lista_userow)
-session.commit()
-
-### read/select
-
-users_from_db = session.query(User).all()
-
-session.commit()
-
-session.flush()
 connection.close()
 engine.dispose()
 
