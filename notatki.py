@@ -1,62 +1,60 @@
-
-from bs4 import BeautifulSoup
-import requests
-import folium
-
-nazwy_miejscowości = ['Opoczno', 'Lublin', 'Gdańsk']
-def get_coordinates_of(city:str)->list[float,float]:
-    # pobranie strony internetowej
-
-    adres_URL = f'https://pl.wikipedia.org/wiki/{city}'
-    response = requests.get(url=adres_URL)
-    response_html = BeautifulSoup(response.text, 'html.parser')
-
-    #pobranie współrzędnych z tresci strony internetowej
-    response_html_latitude = response_html.select('.latitude')[1].text # kropka ponieważ ona oznacza class
-    response_html_latitude = float(response_html_latitude.replace(',','.'))
-    response_html_longitude = response_html.select('.longitude')[1].text # kropka ponieważ ona oznacza class
-    response_html_longitude = float(response_html_longitude.replace(',','.'))
-
-    return[response_html_latitude, response_html_longitude]
-
-#for item in nazwy_miejscowości:
-#   print(get_coordinates_of(item))
-
-user =  {"city": 'Hrubieszów', "name": "Agata", "nick":"Aaa","posts":1500}
-# zwróci mape z pinezka odnoszaca się do uzytkownika podanego z klawiatury
-def get_map_one_user(user:str)->None:
-    city = get_coordinates_of(user["city"])
-    map = folium.Map(
-        location=city,
-        tiles="OpenStreetMap",
-        zoom_start=7
-    )
-    folium.Marker(
-        location=city,
-        popup=f'Tu rządzi {user["name"]},'
-            f'postów: {user["posts"]}'
-    ).add_to(map)
-    map.save(f'mapka{user["name"]}.html')
-
-
-# zwróci mapę z wszystkimi użytkownikai z danej listy (znajomymi)
-###RYSOWANIE MAPY
-def get_map_of(users: list) ->None:
-    map = folium.Map(
-        location=[52.3, 21.0], #gdzie mapa ma byc wycentrowana
-        tiles="OpenStreetMap",
-        zoom_start=13
-    )
-    for user in users:
-        folium.Marker(
-            location=get_coordinates_of(city=user['city']),
-            popup=f'Użytkownik: {user["name"]} \n'
-                  f'Liczba postów {user["posts"]}'
-        ).add_to(map)
-    map.save('mapkaaa.html')
-
+import psycopg2 as ps
 from dane import users_list
-get_map_of(users_list)
+
+db_params = ps.connect(
+    database='postgres',
+    user='postgres',
+    password='psip2023',
+    host='localhost',
+    port=5432
+)
+
+cursor=db_params.cursor()
+
+
+# engine=sqlalchemy.create_engine(db_params)
+# connection =engine.connect()
+# sql_query_1 = sqlalchemy.text("INSERT INTO public.my_table(name) VALUES('kepa');")
+# sql_query_1 = sqlalchemy.text("select * from public.my_table;")
+# user = input('podaj nazwe zawodnika do usuniecia')
+# sql_query_1 = sqlalchemy.text(f"delete from public.my_table where name='{user}';")
+# kogo_zamienic = input('podaj kogo zmienic')
+# na_kogo = input('podaj na kogo zamienic')
+# sql_query_1 = sqlalchemy.text(f"update public.my_table set name = '{na_kogo}' where name = '{kogo_zamienic}';")
+
+def dodaj_uzytkownika(user:str):
+    for nick in users_list:
+        if user == nick['nick']:
+            sql_query_1 = f"INSERT INTO public.psip_zad(city, name, nick, posts) VALUES ('{nick['city']}', '{nick['name']}', '{nick['nick']}', '{nick['posts']}');"
+            cursor.execute(sql_query_1)
+            db_params.commit()
+
+dodaj_uzytkownika(input('dodaj'))
+
+
+# def usuń_użytkownika(user:str):
+#     sql_query_1 = sqlalchemy.text(f"delete from public.my_table where name='{user}';")
+#     connection.execute(sql_query_1)
+#     connection.commit()
+# # cwok = 'stasiu'
+# # dodaj_uzytkownika(cwok)
+#
+# def aktualizuj_uzytkownika(user_1:str, user_2:str):
+#     sql_query_1 = sqlalchemy.text(f"update public.my_table set name = '{user_1}' where name = '{user_2}';")
+#     connection.execute(sql_query_1)
+#     connection.commit()
+# aktualizuj_uzytkownika(
+#     user_2=input('kogo zamienic'),
+#     user_1=input('na kogo zamienic'))
+
+
+# connection.execute(sql_query_1)
+# connection.commit()
+
+
+
+
+
 
 
 
