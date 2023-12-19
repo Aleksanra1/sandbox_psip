@@ -47,7 +47,7 @@ def remove_user_from() -> None:
         cursor.execute(sql_query_2)
         db_params.commit()
     else:
-        sql_query_2 = f"DELETE FROM public.psip_zad WHERE name='{query_result[numer - 1][2]}';"
+        sql_query_2 = f"DELETE FROM public.psip_zad WHERE id='{query_result[numer - 1][0]}';"
         cursor.execute(sql_query_2)
         db_params.commit()
 
