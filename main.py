@@ -1,6 +1,5 @@
 from dane import users_list
 from utils.my_functions import gui
-
 gui()
 
 #  TODO wlaczyc do kodo aktualnego obsluge bazy danych
